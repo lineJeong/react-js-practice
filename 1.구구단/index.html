@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
     <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
-    <script>
+    <script type="text/babel">
       "use strict";
 
       class LikeButton extends React.Component {
@@ -29,18 +29,26 @@
             return "You liked this";
           }
 
-          return React.createElement(
-            "button",
-            { onClick: () => this.setState({ liked: true }) },
-            "Like"
+          // return React.createElement(
+          //   "button",
+          //   { onClick: () => this.setState({ liked: true }) },
+          //   "Like"
+          // );
+
+          return (
+            <button onClick={() => this.setState({ liked: true })}>
+              {this.state.liked ? "Liked" : "Like!"}
+            </button>
           );
         }
       }
     </script>
-    <script>
-      ReactDOM.render(
-        React.createElement(LikeButton),
-        document.querySelector("#root")
+    <script type="text/babel">
+      // React 17버전 코드
+      // ReactDOM.render(<LikeButton />, document.querySelector("#root"));
+      // React 18버전 코드
+      ReactDOM.createRoot(document.querySelector("#root")).render(
+        <LikeButton />
       );
     </script>
   </body>
