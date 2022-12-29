@@ -1,4 +1,6 @@
 const React = require("react");
 const ReactDom = reqire("react-dom");
 
-ReactDom.render(<GuGuDan />);
+const WordRelay = require("./WordRelay");
+
+ReactDom.render(<WordRelay />, document.querySelector("#root"));
