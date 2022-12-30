@@ -1,5 +1,5 @@
 const React = require("react");
-const ReactDom = reqire("react-dom");
+const ReactDom = require("react-dom");
 
 const WordRelay = require("./WordRelay");
 
