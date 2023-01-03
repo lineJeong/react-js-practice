@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 
 function getNumbers() {
   // 숫자 4개를 랜덤하게 뽑는 함수 (중복X)
@@ -9,7 +9,7 @@ class NumberBaseball extends Component {
     value: "",
     result: "",
     answer: getNumbers(),
-    tries: 0,
+    tries: [],
   };
 
   onSubmitForm = (e) => {
@@ -35,8 +35,12 @@ class NumberBaseball extends Component {
         </form>
         <div>시도: {this.state.tries.length}</div>
         <ul>
-          {[1, 2, 3].map((el) => (
-            <li>{el}</li>
+          {[
+            { id: 1, text: "1번" },
+            { id: 2, text: "2번" },
+            { id: 3, text: "3번" },
+          ].map((el) => (
+            <li key={el.id + el.text}>{`${el.id} - ${el.text}`}</li>
           ))}
         </ul>
       </>
