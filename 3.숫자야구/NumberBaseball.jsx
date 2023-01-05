@@ -6,20 +6,25 @@ function getNumbers() {
 }
 
 class NumberBaseball extends Component {
-  state = {
-    value: "",
-    result: "",
-    answer: getNumbers(),
-    tries: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "",
+      result: "",
+      answer: getNumbers(),
+      tries: [],
+    };
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.onChangeInput = this.onChangeInput.bind(this);
+  }
 
-  onSubmitForm = (e) => {
+  onSubmitForm(e) {
     e.preventDefault();
-  };
+  }
 
-  onChangeInput = (e) => {
+  onChangeInput(e) {
     this.setState({ value: e.target.value });
-  };
+  }
 
   text = [
     { id: 1, text: "1번" },
