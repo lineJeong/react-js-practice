@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Try from "./Try-Hooks";
+import Try from "./Try";
 
 function getNumbers() {
   // 숫자 4개를 랜덤하게 뽑는 함수 (중복X)
