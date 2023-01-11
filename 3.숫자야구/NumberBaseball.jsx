@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import Try from "./Try";
 
 function getNumbers() {
@@ -43,6 +43,7 @@ class NumberBaseball extends Component {
         answer: getNumbers(),
         tries: [],
       });
+      this.inputRef.current.focus();
     } else {
       const answerArray = this.state.value.split("").map((v) => parseInt(v));
       let strike = 0;
@@ -76,6 +77,7 @@ class NumberBaseball extends Component {
             ],
           };
         });
+        this.inputRef.current.focus();
       }
     }
   }
@@ -84,11 +86,13 @@ class NumberBaseball extends Component {
     this.setState({ value: e.target.value });
   }
 
-  text = [
-    { id: 1, text: "1번" },
-    { id: 2, text: "2번" },
-    { id: 3, text: "3번" },
-  ];
+  // text = [
+  //   { id: 1, text: "1번" },
+  //   { id: 2, text: "2번" },
+  //   { id: 3, text: "3번" },
+  // ];
+
+  inputRef = createRef();
 
   render() {
     return (
@@ -96,6 +100,7 @@ class NumberBaseball extends Component {
         <h1>{this.state.result}</h1>
         <form onSubmit={this.onSubmitForm}>
           <input
+            ref={this.inputRef}
             type="text"
             maxLength={4}
             value={this.state.value}

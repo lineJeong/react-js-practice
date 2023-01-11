@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Try from "./Try";
+import React, { useRef, useState } from "react";
+import Try from "./Try-Hooks";
 
 function getNumbers() {
   // 숫자 4개를 랜덤하게 뽑는 함수 (중복X)
@@ -18,6 +18,8 @@ const NumberBaseball = () => {
   const [answer, setAnswer] = useState(getNumbers); // lazy init
   const [tries, setTries] = useState([]);
 
+  const inputRef = useRef(null);
+
   const onSubmitForm = (e) => {
     e.preventDefault();
     if (value === answer.join("")) {
@@ -27,6 +29,7 @@ const NumberBaseball = () => {
       setValue("");
       setAnswer(getNumbers());
       setTries([]);
+      inputRef.current.focus();
     } else {
       const answerArray = value.split("").map((v) => parseInt(v));
       let strike = 0;
@@ -53,6 +56,7 @@ const NumberBaseball = () => {
           },
         ]);
         setValue("");
+        inputRef.current.focus();
       }
     }
   };
@@ -66,6 +70,7 @@ const NumberBaseball = () => {
       <h1>{result}</h1>
       <form onSubmit={onSubmitForm}>
         <input
+          ref={inputRef}
           type="text"
           maxLength={4}
           value={value}
