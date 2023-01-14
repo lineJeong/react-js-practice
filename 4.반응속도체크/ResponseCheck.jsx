@@ -12,8 +12,7 @@ class ResponseCheck extends Component {
   endTime;
 
   onClickScreen = () => {
-    console.log(this.state.result);
-    const { state, message, result } = this.state;
+    const { state } = this.state;
     if (state === "waiting") {
       this.setState({ state: "ready", message: "초록색이 되면 클릭하세요." });
       this.timeout = setTimeout(() => {
@@ -41,14 +40,21 @@ class ResponseCheck extends Component {
     }
   };
 
+  onReset = () => {
+    this.setState({ result: [] });
+  };
+
   renderAverage = () => {
     const { result } = this.state;
     return result.length === 0 ? null : (
-      <div>
-        평균 시간:
-        {result.reduce((a, c) => a + c) / result.length}
-        ms
-      </div>
+      <>
+        <div>
+          평균 시간:
+          {result.reduce((a, c) => a + c) / result.length}
+          ms
+        </div>
+        <button onClick={this.onReset}>리셋</button>
+      </>
     );
   };
 
