@@ -5,15 +5,46 @@ import React, { Component } from "react";
 // -> (setState/props 바꿀 때 -> shouldcComponentUpdate -> render -> componentDidUpdate)
 // 부모가 나를 없앴을 때 -> componentWillUnmount -> 소멸
 
+const rspCoords = {
+  rock: "0",
+  sissors: "-142px",
+  paper: "-284px",
+};
+
+const score = {
+  rock: 0,
+  sissors: 1,
+  paper: -1,
+};
+
 class RSP extends Component {
   state = {
     result: "",
     score: 0,
-    imgCoord: 0,
+    imgCoord: "0",
   };
 
+  interval;
+
   componentDidMount() {
-    // 컴포넌트 첫 렌더링된 후
+    // 컴포넌트 첫 렌더링된 후 (비동기 요청 많이 함)
+    this.interval = setInterval(() => {
+      const { imgCoord } = this.state;
+      if (imgCoord === rspCoords.rock) {
+        this.setState({
+          imgCoord: rspCoords.sissors,
+        });
+      } else if (imgCoord === rspCoords.sissors) {
+        console.log(imgCoord);
+        this.setState({
+          imgCoord: rspCoords.paper,
+        });
+      } else if (imgCoord === rspCoords.paper) {
+        this.setState({
+          imgCoord: rspCoords.rock,
+        });
+      }
+    }, 1000);
   }
 
   componentDidUpdate() {
@@ -21,8 +52,11 @@ class RSP extends Component {
   }
 
   componentWillUnmount() {
-    // 컴포넌트가 제거되기 직전
+    // 컴포넌트가 제거되기 직전 (비동기 요청 정리를 많이 함)
+    clearInterval(this.interval);
   }
+
+  onClickBtn = (choice) => {};
 
   render() {
     const { result, score, imgCoord } = this.state;
@@ -37,21 +71,21 @@ class RSP extends Component {
         <div>
           <button
             id="rock"
-            claaName="btn"
+            className="btn"
             onClick={() => this.onClickBtn("바위")}
           >
             바위
           </button>
           <button
             id="sissors"
-            claaName="btn"
+            className="btn"
             onClick={() => this.onClickBtn("가위")}
           >
             가위
           </button>
           <button
             id="paper"
-            claaName="btn"
+            className="btn"
             onClick={() => this.onClickBtn("보")}
           >
             보
