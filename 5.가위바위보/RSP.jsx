@@ -25,7 +25,7 @@ class RSP extends Component {
   state = {
     result: "",
     score: 0,
-    imgCoord: "0",
+    imgCoord: rspCoords.rock,
   };
 
   interval;
@@ -51,7 +51,6 @@ class RSP extends Component {
         imgCoord: rspCoords.sissors,
       });
     } else if (imgCoord === rspCoords.sissors) {
-      console.log(imgCoord);
       this.setState({
         imgCoord: rspCoords.paper,
       });
@@ -62,7 +61,7 @@ class RSP extends Component {
     }
   };
 
-  onClickBtn = (choice) => {
+  onClickBtn = (choice) => () => {
     const { imgCoord } = this.state;
     clearInterval(this.interval);
     const myScore = scores[choice];
@@ -99,25 +98,17 @@ class RSP extends Component {
           }}
         ></div>
         <div>
-          <button
-            id="rock"
-            className="btn"
-            onClick={() => this.onClickBtn("rock")}
-          >
+          <button id="rock" className="btn" onClick={this.onClickBtn("rock")}>
             바위
           </button>
           <button
             id="sissors"
             className="btn"
-            onClick={() => this.onClickBtn("sissors")}
+            onClick={this.onClickBtn("sissors")}
           >
             가위
           </button>
-          <button
-            id="paper"
-            className="btn"
-            onClick={() => this.onClickBtn("paper")}
-          >
+          <button id="paper" className="btn" onClick={this.onClickBtn("paper")}>
             보
           </button>
         </div>
