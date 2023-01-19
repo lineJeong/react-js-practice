@@ -24,6 +24,33 @@ class Lotto extends Component {
     bonus: null,
     redo: false,
   };
+
+  timeouts = [];
+
+  componentDidMount() {
+    const { winNumbers } = this.state;
+    for (let i = 0; i < this.state.winNumbers.length - 1; i++) {
+      this.timeouts[i] = setTimeout(() => {
+        this.setState((prevState) => {
+          return { winBalls: [...prevState.winBalls, winNumbers[i]] };
+        });
+      }, (i + 1) * 1000);
+
+      this.timeouts[i] = setTimeout(() => {
+        this.setState({
+          bonus: winNumbers[6],
+          redo: true,
+        });
+      }, 7000);
+    }
+  }
+
+  componentWillUnmount() {
+    this.timeouts.forEach((v) => {
+      clearTimeout(v);
+    });
+  }
+
   render() {
     const { winBalls, bonus, redo } = this.state;
     return (
