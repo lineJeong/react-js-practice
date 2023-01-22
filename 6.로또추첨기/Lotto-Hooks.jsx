@@ -31,6 +31,18 @@ const Lotto = () => {
   const [redo, setRedo] = useState(false);
   const timeouts = useRef([]);
 
+  // componentDidMount에서만 ajax 요청하고 싶다면 (꼼수임)
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      // componentDidUpdate Only (componentDidMount X)
+      mounted.current = true;
+    } else {
+      // componentDidMount Only (componentDidUpdate X)
+      // ajax
+    }
+  }, []); // 의존성 배열에 업데이트할 상태 넣기
+
   useEffect(() => {
     for (let i = 0; i < winNumbers.length - 1; i++) {
       timeouts.current[i] = setTimeout(() => {
