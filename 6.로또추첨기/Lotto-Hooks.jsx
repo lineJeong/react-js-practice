@@ -1,7 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import Ball from "./Ball";
 
 function getWinNumbers() {
+  console.log("getWinNumbers 함수 실행");
   const candidate = Array(45)
     .fill()
     .map((v, i) => i + 1);
@@ -11,14 +18,14 @@ function getWinNumbers() {
       candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0]
     );
   }
-  console.log(shuffle);
   const bonusNumber = shuffle[shuffle.length - 1];
   const winNumbers = shuffle.slice(0, 6).sort((p, c) => p - c);
   return [...winNumbers, bonusNumber];
 }
 
 const Lotto = () => {
-  const [winNumbers, setWinNumbers] = useState(getWinNumbers());
+  const lottoNumbers = useMemo(() => getWinNumbers(), []);
+  const [winNumbers, setWinNumbers] = useState(lottoNumbers);
   const [winBalls, setWinBalls] = useState([]);
   const [bonus, setBonus] = useState(null);
   const [redo, setRedo] = useState(false);
@@ -42,13 +49,15 @@ const Lotto = () => {
     };
   }, [timeouts.current]);
 
-  const onClickRedo = () => {
+  const onClickRedo = useCallback(() => {
+    console.log("onClickRedo 함수 실행");
+    console.log(winNumbers);
     setWinNumbers(getWinNumbers());
     setWinBalls([]);
     setBonus(null);
     setRedo(false);
     timeouts.current = [];
-  };
+  }, [winNumbers]);
 
   return (
     <>
