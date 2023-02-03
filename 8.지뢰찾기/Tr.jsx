@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { tableContext } from "./MineSearch";
 import Td from "./Td";
 
@@ -14,4 +14,4 @@ function Tr({ rowIndex }) {
   );
 }
 
-export default Tr;
+export default memo(Tr);

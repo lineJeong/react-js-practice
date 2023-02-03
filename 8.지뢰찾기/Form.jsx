@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext, memo } from "react";
 import { START_GAME, tableContext } from "./MineSearch";
 
 function Form() {
@@ -48,4 +48,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default memo(Form);

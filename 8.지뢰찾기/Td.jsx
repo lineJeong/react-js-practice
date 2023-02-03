@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, memo, useMemo } from "react";
 import {
   CODE,
   OPEN_CELL,
@@ -39,6 +39,7 @@ const getTdStyle = (code) => {
 };
 
 const getTdText = (code) => {
+  console.log("*** getTdText ***");
   switch (code) {
     case CODE.NORMAL:
       return "";
@@ -108,15 +109,41 @@ function Td({ rowIndex, cellIndex }) {
     [tableData[rowIndex][cellIndex], halted]
   );
 
+  console.log("td rendered");
+
+  // return useMemo(
+  //   () => (
+  //     <td
+  //       style={getTdStyle(tableData[rowIndex][cellIndex])}
+  //       onClick={onClickTd}
+  //       onContextMenu={onRightClickTd}
+  //     >
+  //       {getTdText(tableData[rowIndex][cellIndex])}
+  //     </td>
+  //   ),
+  //   [tableData[rowIndex][cellIndex]]
+  // );
   return (
-    <td
-      style={getTdStyle(tableData[rowIndex][cellIndex])}
-      onClick={onClickTd}
-      onContextMenu={onRightClickTd}
-    >
-      {getTdText(tableData[rowIndex][cellIndex])}
-    </td>
+    <RealTd
+      onClickTd={onClickTd}
+      onRightClickTd={onRightClickTd}
+      data={tableData[rowIndex][cellIndex]}
+    />
   );
 }
 
-export default Td;
+const RealTd = memo(({ onClickTd, onRightClickTd, data }) => {
+  console.log("*** RealTd rendered ***");
+
+  return (
+    <td
+      style={getTdStyle(data)}
+      onClick={onClickTd}
+      onContextMenu={onRightClickTd}
+    >
+      {getTdText(data)}
+    </td>
+  );
+});
+
+export default memo(Td);

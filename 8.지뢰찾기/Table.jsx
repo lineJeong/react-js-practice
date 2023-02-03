@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { tableContext } from "./MineSearch";
 import Tr from "./Tr";
 
@@ -15,4 +15,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default memo(Table);
