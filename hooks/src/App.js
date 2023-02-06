@@ -1,3 +1,4 @@
+import UseDeferredValue from "./hooks/UseDeferredValue";
 import UseLayoutEffect from "./hooks/UseLayoutEffect";
 import UseTransition from "./hooks/UseTransition";
 
@@ -8,6 +9,8 @@ function App() {
       <UseLayoutEffect />
       <h2>useTransition</h2>
       <UseTransition />
+      <h2>useDeferredValue</h2>
+      <UseDeferredValue />
     </>
   );
 }
