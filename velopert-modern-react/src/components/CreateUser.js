@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 function CreateUser({ username, email, onChange, onCreate }) {
   return (
@@ -20,4 +20,4 @@ function CreateUser({ username, email, onChange, onCreate }) {
   );
 }
 
-export default CreateUser;
+export default memo(CreateUser);

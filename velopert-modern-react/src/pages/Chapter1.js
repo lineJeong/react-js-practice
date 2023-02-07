@@ -17,10 +17,10 @@ function Chapter1() {
     email: "",
   });
   const { username, email } = inputs;
-  const onChange = (e) => {
+  const onChange = useCallback((e) => {
     const { name, value } = e.target;
-    setInputs({ ...inputs, [name]: value });
-  };
+    setInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
+  }, []);
   const [users, setUsers] = useState([
     {
       id: 1,
@@ -62,32 +62,29 @@ function Chapter1() {
       email,
     };
     // setUsers([...users, user]);
-    setUsers(users.concat(user));
+    // setUsers(users.concat(user));
+
+    // 함수형 업데이트를 사용해 users를 deps에서 제거함으로써 users 배열이 바뀔 때마다 함수가 새로 만들어져 발생되던 리랜더링 현상을 막아 최적화 함
+    setUsers((prevUsers) => [...prevUsers, user]);
 
     setInputs({
       username: "",
       email: "",
     });
     nextId.current += 1;
-  }, [users, username, email]);
+  }, [username, email]);
 
-  const onRemove = useCallback(
-    (id) => {
-      setUsers(users.filter((user) => user.id !== id));
-    },
-    [users]
-  );
+  const onRemove = useCallback((id) => {
+    setUsers((prevUser) => prevUser.filter((user) => user.id !== id));
+  }, []);
 
-  const onToggle = useCallback(
-    (id) => {
-      setUsers(
-        users.map((user) =>
-          user.id === id ? { ...user, active: !user.active } : user
-        )
-      );
-    },
-    [users]
-  );
+  const onToggle = useCallback((id) => {
+    setUsers((prevUser) =>
+      prevUser.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  }, []);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
 
