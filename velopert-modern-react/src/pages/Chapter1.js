@@ -1,10 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import Counter from "../components/Counter";
 import CreateUser from "../components/CreateUser";
 import Hello from "../components/Hello";
 import InputSample from "../components/InputSample";
 import UserList from "../components/UserList";
 import Wrapper from "../components/Wrapper";
+
+const countActiveUsers = (users) => {
+  console.log("활성 사용자 수를 세는 중");
+  return users.filter((user) => user.active).length;
+};
 
 function Chapter1() {
   const [inputs, setInputs] = useState({
@@ -66,6 +71,8 @@ function Chapter1() {
     );
   };
 
+  const count = useMemo(() => countActiveUsers(users), [users]);
+
   return (
     <>
       <h1>Chaper1</h1>
@@ -96,6 +103,7 @@ function Chapter1() {
           onCreate={onCreate}
         />
         <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
+        <div>활성 사용자 수 : {count}</div>
       </Wrapper>
     </>
   );
