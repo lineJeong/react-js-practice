@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useCallback } from "react";
 import Counter from "../components/Counter";
 import CreateUser from "../components/CreateUser";
 import Hello from "../components/Hello";
@@ -7,7 +7,7 @@ import UserList from "../components/UserList";
 import Wrapper from "../components/Wrapper";
 
 const countActiveUsers = (users) => {
-  console.log("활성 사용자 수를 세는 중");
+  //   console.log("활성 사용자 수를 세는 중");
   return users.filter((user) => user.active).length;
 };
 
@@ -42,8 +42,20 @@ function Chapter1() {
     },
   ]);
 
+  // useCallback : 컴포넌트가 리렌더링 될 때 마다 함수가 새로 만들어지는 일을 방지하고, 필요할때만 새로 만들고 재사용하도록 최적화
+  // onCreate, onRemove, onToggle 함수에 useCallback 적용
+  // 함수 안에서 사용하는 상태 혹은 props(함수 포함) 가 있다면 꼭, deps 배열안에 포함시켜야 함 (for 최신 값 참조)
+
+  // useCallback 은 useMemo 를 기반으로 만들어졌고 아래와 같이 사용할 수도 있음
+  //   const onToggle = useMemo(
+  //   () => () => {
+  //     /* ... */
+  //   },
+  //   [users]
+  // );
+
   const nextId = useRef(4);
-  const onCreate = () => {
+  const onCreate = useCallback(() => {
     const user = {
       id: nextId.current,
       username,
@@ -57,19 +69,25 @@ function Chapter1() {
       email: "",
     });
     nextId.current += 1;
-  };
+  }, [users, username, email]);
 
-  const onRemove = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
-  };
+  const onRemove = useCallback(
+    (id) => {
+      setUsers(users.filter((user) => user.id !== id));
+    },
+    [users]
+  );
 
-  const onToggle = (id) => {
-    setUsers(
-      users.map((user) =>
-        user.id === id ? { ...user, active: !user.active } : user
-      )
-    );
-  };
+  const onToggle = useCallback(
+    (id) => {
+      setUsers(
+        users.map((user) =>
+          user.id === id ? { ...user, active: !user.active } : user
+        )
+      );
+    },
+    [users]
+  );
 
   const count = useMemo(() => countActiveUsers(users), [users]);
 
