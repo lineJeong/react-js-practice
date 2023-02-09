@@ -1,10 +1,10 @@
 import "./App.css";
-import Chapter1 from "./pages/Chapter1";
+import UseReducer from "./pages/UseReducer";
 
 function App() {
   return (
     <>
-      <Chapter1 />
+      <UseReducer />
     </>
   );
 }
