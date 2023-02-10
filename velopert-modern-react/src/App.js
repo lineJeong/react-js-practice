@@ -1,10 +1,10 @@
 import "./App.css";
-import UseReducer from "./pages/UseReducer";
+import CustomHooks from "./pages/CustomHooks";
 
 function App() {
   return (
     <>
-      <UseReducer />
+      <CustomHooks />
     </>
   );
 }
