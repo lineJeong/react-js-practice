@@ -1,6 +1,12 @@
-import React, { useRef, useReducer, useMemo, useCallback } from "react";
+import React, {
+  useRef,
+  useReducer,
+  useMemo,
+  useCallback,
+  createContext,
+} from "react";
 import CreateUser from "../components/CreateUser";
-import UserList from "../components/UserList";
+import UserList from "../components/UserList-useContext";
 import useInputs from "../hooks/useInputs";
 
 const countActiveUsers = (users) => {
@@ -55,8 +61,10 @@ const reducer = (state, action) => {
   }
 };
 
+export const UserDispatch = createContext(null);
+
 function CustomHooks() {
-  const [{ username, email }, onChange, reset] = useInputs({
+  const [{ username, email }, onChange, onReset] = useInputs({
     username: "",
     email: "",
   });
@@ -74,9 +82,9 @@ function CustomHooks() {
         email,
       },
     });
-    reset();
+    onReset();
     nextId.current += 1;
-  }, [username, email, reset]);
+  }, [username, email, onReset]);
 
   const onToggle = useCallback((id) => {
     dispatch({
@@ -95,7 +103,7 @@ function CustomHooks() {
   const count = useMemo(() => countActiveUsers(users), [users]);
 
   return (
-    <>
+    <UserDispatch.Provider value={dispatch}>
       <CreateUser
         username={username}
         email={email}
@@ -104,7 +112,7 @@ function CustomHooks() {
       />
       <UserList users={users} onToggle={onToggle} onRemove={onRemove} />
       <div>활성사용자 수 : {count}</div>
-    </>
+    </UserDispatch.Provider>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, memo } from "react";
 
-const User = memo(function User({ user, onRemove, onToggle }) {
+const User = memo(function User({ user, onToggle, onRemove }) {
   // useEffect 안에서 사용하는 상태나, props 가 있다면, useEffect 의 deps 에 넣어주어야 함
   // 그렇지 않으면 useEffect 에 등록한 함수가 실행 될 때 최신 props / 상태를 가르키지 않음
   useEffect(() => {
@@ -26,15 +26,15 @@ const User = memo(function User({ user, onRemove, onToggle }) {
   );
 });
 
-function UserList({ users, onRemove, onToggle }) {
+function UserList({ users, onToggle, onRemove }) {
   return (
     <div>
       {users.map((user) => (
         <User
           key={user.id}
           user={user}
-          onRemove={onRemove}
           onToggle={onToggle}
+          onRemove={onRemove}
         />
       ))}
     </div>

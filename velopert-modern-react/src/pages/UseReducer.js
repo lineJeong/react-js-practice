@@ -34,10 +34,10 @@ const initialState = {
   ],
 };
 
-const CHANGE_INPUT = "CHANGE_INPUT";
-const CREATE_USER = "CREATE_USER";
-const TOGGLE_USER = "TOGGLE_USER";
-const REMOVE_USER = "REMOVE_USER";
+export const CHANGE_INPUT = "CHANGE_INPUT";
+export const CREATE_USER = "CREATE_USER";
+export const TOGGLE_USER = "TOGGLE_USER";
+export const REMOVE_USER = "REMOVE_USER";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -90,7 +90,7 @@ function UseReducer() {
 
   const onCreate = useCallback(() => {
     dispatch({
-      type: "CREATE_USER",
+      type: CREATE_USER,
       user: {
         id: nextId.current,
         username,
