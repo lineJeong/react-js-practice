@@ -1,5 +1,6 @@
-// import Bank from "./pages/Bank";
-import AttendanceBook from "./pages/AttendanceBook";
+// useReducer
+// import Bank from "./useReducer/pages/Bank";
+import AttendanceBook from "./useReducer/pages/AttendanceBook";
 
 function App() {
   return (
