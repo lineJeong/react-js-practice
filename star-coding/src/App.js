@@ -3,14 +3,18 @@
 // import AttendanceBook from "./useReducer/pages/AttendanceBook";
 
 // React.memo
-import Parent from "./memo/Parent";
+// import Parent from "./memo/Parent";
+
+// useContext
+import Theme from "./useContext/Theme";
 
 function App() {
   return (
     <>
       {/* <Bank /> */}
       {/* <AttendanceBook /> */}
-      <Parent />
+      {/* <Parent /> */}
+      <Theme />
     </>
   );
 }
