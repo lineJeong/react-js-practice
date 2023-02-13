@@ -6,15 +6,16 @@
 // import Parent from "./memo/Parent";
 
 // useContext
-import Theme from "./useContext/Theme";
+// import Theme from "./useContext/Theme";
+
+// useMemo
+// import Calculator from "./useMemo/Calculator";
+import Location from "./useMemo/Location";
 
 function App() {
   return (
     <>
-      {/* <Bank /> */}
-      {/* <AttendanceBook /> */}
-      {/* <Parent /> */}
-      <Theme />
+      <Location />
     </>
   );
 }
