@@ -10,12 +10,16 @@
 
 // useMemo
 // import Calculator from "./useMemo/Calculator";
-import Location from "./useMemo/Location";
+// import Location from "./useMemo/Location";
+
+// useCallback
+// import Number from "./useCallback/Number";
+import BoxContainer from "./useCallback/BoxContainer";
 
 function App() {
   return (
     <>
-      <Location />
+      <BoxContainer />
     </>
   );
 }
