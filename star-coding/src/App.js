@@ -18,12 +18,16 @@
 
 // Custom Hooks
 // import CustomHooks from "./customHooks/CustomHooks";
-import CustomHooks2 from "./customHooks/CustomHooks2";
+// import CustomHooks2 from "./customHooks/CustomHooks2";
+
+// React.Fragment
+// import Tip1 from "./fragment/Tip1";
+import Tip2 from "./fragment/Tip2";
 
 function App() {
   return (
     <>
-      <CustomHooks2 />
+      <Tip2 />
     </>
   );
 }

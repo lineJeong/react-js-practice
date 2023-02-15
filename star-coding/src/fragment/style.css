@@ -1,0 +1,25 @@
+/* Tip1 */
+
+.Tip1 {
+  display: flex;
+  border: 1px solid black;
+  justify-content: space-between;
+}
+
+h1 {
+  background-color: powderblue;
+}
+
+p {
+  background-color: pink;
+}
+
+/* Tip2 */
+
+table {
+  border: 1px solid black;
+}
+
+td {
+  border: 1px solid black;
+}
