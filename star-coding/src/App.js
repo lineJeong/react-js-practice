@@ -25,12 +25,15 @@
 // import Tip2 from "./fragment/Tip2";
 
 // List와 Key
-import Key from "./key/Key";
+// import Key from "./key/Key";
+
+// ForwardRef
+import ForwardRef from "./forwardRef/ForwardRef";
 
 function App() {
   return (
     <>
-      <Key />
+      <ForwardRef />
     </>
   );
 }
