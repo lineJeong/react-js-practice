@@ -22,12 +22,15 @@
 
 // React.Fragment
 // import Tip1 from "./fragment/Tip1";
-import Tip2 from "./fragment/Tip2";
+// import Tip2 from "./fragment/Tip2";
+
+// List와 Key
+import Key from "./key/Key";
 
 function App() {
   return (
     <>
-      <Tip2 />
+      <Key />
     </>
   );
 }
