@@ -28,12 +28,16 @@
 // import Key from "./key/Key";
 
 // ForwardRef
-import ForwardRef from "./forwardRef/ForwardRef";
+// import ForwardRef from "./forwardRef/ForwardRef";
+
+// useEffect
+// import Count from "./useEffect/Count";
+import ToggleTimer from "./useEffect/ToggleTimer";
 
 function App() {
   return (
     <>
-      <ForwardRef />
+      <ToggleTimer />
     </>
   );
 }
