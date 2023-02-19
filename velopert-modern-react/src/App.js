@@ -1,10 +1,15 @@
 import "./App.css";
-import CustomHooks from "./pages/CustomHooks";
+import First from "./contextAPI/First";
+import Second from "./contextAPI/Second";
+import Third from "./contextAPI/Third";
+// import CustomHooks from "./pages/CustomHooks";
 
 function App() {
   return (
     <>
-      <CustomHooks />
+      <First />
+      <Second />
+      <Third />
     </>
   );
 }
