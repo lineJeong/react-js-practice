@@ -112,17 +112,12 @@ function TodoList() {
 function Todo({ id, text, done }) {
   const { toggle, remove } = useTodosActions();
 
-  const getToggleStyle = () => {
-    switch (done) {
-      case true:
-        return {
-          color: "gray",
-          textDecoration: "line-through",
-          cursor: "pointer",
-        };
-      default:
-        return { color: "black", cursor: "pointer" };
-    }
+  const doneStyle = {
+    color: "gray",
+    textDecoration: "line-through",
+  };
+  const style = {
+    cursor: "pointer",
   };
 
   const handleToggle = () => {
@@ -135,7 +130,10 @@ function Todo({ id, text, done }) {
 
   return (
     <li>
-      <span style={getToggleStyle()} onClick={handleToggle}>
+      <span
+        style={done ? { ...style, ...doneStyle } : style}
+        onClick={handleToggle}
+      >
         {text}
       </span>
       <button onClick={handleRemove}>삭제</button>
