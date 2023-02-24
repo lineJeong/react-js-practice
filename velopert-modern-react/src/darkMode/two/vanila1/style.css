@@ -1,0 +1,15 @@
+/* body의 data-theme 속성을 설정 */
+body[data-theme="light"] {
+  --color-text: black;
+  --color-background: white;
+}
+
+body[data-theme="dark"] {
+  --color-text: white;
+  --color-background: black;
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-background);
+}

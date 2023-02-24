@@ -1,0 +1,17 @@
+/* 미디어 쿼리 사용에 따른 중복 코드를 없애고 싶다면 */
+/* js에서 시스템 설정 조회하고 바로 data-theme 설정 */
+/* 이렇게 구현하는 경우, 페이지 로딩 후 시스템 테마가 바뀔 때 처리하는건 따로 구현해주어야 함 */
+body[data-theme="light"] {
+  --color-text: black;
+  --color-background: white;
+}
+
+body[data-theme="dark"] {
+  --color-text: white;
+  --color-background: black;
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-background);
+}

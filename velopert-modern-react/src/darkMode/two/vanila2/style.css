@@ -1,0 +1,29 @@
+/* 초기 테마를 시스템 테마 설정을 따라가려면 prefers-color-scheme 미디어 쿼리를 사용함 */
+/* 미디어 쿼리를 사용하면 중복 코드를 좀 작성해야 토글을 할 수 있음 */
+
+body {
+  --color-text: black;
+  --color-background: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --color-text: white;
+    --color-background: black;
+  }
+}
+
+body[data-theme="light"] {
+  --color-text: black;
+  --color-background: white;
+}
+
+body[data-theme="dark"] {
+  --color-text: white;
+  --color-background: black;
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-background);
+}
