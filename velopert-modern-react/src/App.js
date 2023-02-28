@@ -1,5 +1,5 @@
 import "./App.css";
-import Immer from "./immer/Immer";
+import Lecture24 from "./class/Lecture24";
 
 // import Eighth1 from "./contextAPI/Eighth1";
 // import Eighth2 from "./contextAPI/Eighth2";
@@ -9,7 +9,7 @@ import Immer from "./immer/Immer";
 function App() {
   return (
     <>
-      <Immer />
+      <Lecture24 />
     </>
   );
 }
