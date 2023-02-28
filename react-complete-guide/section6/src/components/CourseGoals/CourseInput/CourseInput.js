@@ -24,17 +24,11 @@ const CourseInput = (props) => {
     setEnteredValue("");
   };
 
-  const styleByValidity = `${isValid ? "black" : "red"}`;
-
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className="form-control">
-        <label style={{ color: styleByValidity }}>Course Goal</label>
+      <div className={`form-control ${isValid ? "" : "invalid"}`}>
+        <label>Course Goal</label>
         <input
-          style={{
-            borderColor: styleByValidity,
-            background: isValid ? "transparent" : "salmon",
-          }}
           type="text"
           value={enteredValue}
           onChange={goalInputChangeHandler}
