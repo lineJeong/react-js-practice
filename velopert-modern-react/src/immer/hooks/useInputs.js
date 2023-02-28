@@ -5,10 +5,12 @@ function useInputs(initialForm) {
 
   const onChange = useCallback((e) => {
     const { name, value } = e.target;
-    setForm((form) => ({ ...form, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   }, []);
-  const reset = useCallback(() => setForm(initialForm), [initialForm]);
-  return [form, onChange, reset];
+
+  const onReset = useCallback(() => setForm(initialForm), [initialForm]);
+
+  return [form, onChange, onReset];
 }
 
 export default useInputs;

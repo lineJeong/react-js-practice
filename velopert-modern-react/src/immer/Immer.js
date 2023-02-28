@@ -1,12 +1,12 @@
-import React, { useReducer, useMemo } from "react";
-import UserList from "./UserList";
-import CreateUser from "./CreateUser";
+import { createContext, useMemo, useReducer } from "react";
 import produce from "immer";
 
-function countActiveUsers(users) {
-  console.log("활성 사용자 수를 세는중...");
+import CreateUser from "./CreateUser";
+import UserList from "./UserList";
+
+const countActiveUsers = (users) => {
   return users.filter((user) => user.active).length;
-}
+};
 
 const initialState = {
   users: [
@@ -31,18 +31,22 @@ const initialState = {
   ],
 };
 
-function reducer(state, action) {
+export const CREATE_USER = "CREATE_USER";
+export const TOGGLE_USER = "TOGGLE_USER";
+export const REMOVE_USER = "REMOVE_USER";
+
+const reducer = (state, action) => {
   switch (action.type) {
-    case "CREATE_USER":
+    case CREATE_USER:
       return produce(state, (draft) => {
         draft.users.push(action.user);
       });
-    case "TOGGLE_USER":
+    case TOGGLE_USER:
       return produce(state, (draft) => {
         const user = draft.users.find((user) => user.id === action.id);
         user.active = !user.active;
       });
-    case "REMOVE_USER":
+    case REMOVE_USER:
       return produce(state, (draft) => {
         const index = draft.users.findIndex((user) => user.id === action.id);
         draft.users.splice(index, 1);
@@ -50,21 +54,21 @@ function reducer(state, action) {
     default:
       return state;
   }
-}
+};
 
-export const UserDispatch = React.createContext(null);
+export const UserDispatch = createContext(null);
 
 function Immer() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const { users } = state;
 
   const count = useMemo(() => countActiveUsers(users), [users]);
+
   return (
     <UserDispatch.Provider value={dispatch}>
       <CreateUser />
       <UserList users={users} />
-      <div>활성사용자 수 : {count}</div>
+      <div>활성 이용자 수 : {count}</div>
     </UserDispatch.Provider>
   );
 }
