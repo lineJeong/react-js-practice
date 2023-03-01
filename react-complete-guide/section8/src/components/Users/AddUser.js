@@ -12,27 +12,16 @@ function AddUser() {
 
   const addUserHandler = (e) => {
     e.preventDefault();
+    onReset();
   };
 
   return (
     <Card className={styles.input}>
       <form onSubmit={addUserHandler}>
         <label htmlFor="username">username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={username}
-          onChange={onChange}
-        />
+        <input type="text" id="username" value={username} onChange={onChange} />
         <label htmlFor="age">Age (Years)</label>
-        <input
-          type="number"
-          id="age"
-          name="age"
-          value={age}
-          onChange={onChange}
-        />
+        <input type="number" id="age" value={age} onChange={onChange} />
         <Button type="submit">Add User</Button>
       </form>
     </Card>

@@ -4,8 +4,8 @@ const useInputs = (initialForm) => {
   const [form, setForm] = useState(initialForm);
 
   const onChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { id, value } = e.target;
+    setForm((prev) => ({ ...prev, [id]: value }));
   }, []);
 
   const onReset = useCallback(() => setForm(initialForm), [initialForm]);
