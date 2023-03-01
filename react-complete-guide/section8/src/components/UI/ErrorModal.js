@@ -2,9 +2,9 @@ import styles from "./ErrorModal.module.css";
 import Button from "./Button";
 import Card from "./Card";
 
-function ErrorModal({ title, message }) {
+function ErrorModal({ title, message, onConfirm }) {
   return (
-    <div className={styles.backdrop}>
+    <div className={styles.backdrop} onClick={onConfirm}>
       <Card className={styles.modal}>
         <header className={styles.header}>
           <h2>{title}</h2>
@@ -13,7 +13,7 @@ function ErrorModal({ title, message }) {
           <p>{message}</p>
         </div>
         <footer className={styles.actions}>
-          <Button>Okay</Button>
+          <Button onClick={onConfirm}>Okay</Button>
         </footer>
       </Card>
     </div>

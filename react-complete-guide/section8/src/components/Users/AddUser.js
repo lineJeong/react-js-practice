@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useInputs from "../../hooks/useInputs";
 
 import styles from "./AddUser.module.css";
@@ -10,21 +11,46 @@ function AddUser({ onAddUser }) {
     username: "",
     age: "",
   });
+  const [error, setError] = useState(null);
 
   const addUserHandler = (e) => {
     e.preventDefault();
-    if (username.trim().length === 0 || age.trim().length === 0) return;
-    if (+age < 1) return;
+    if (username.trim().length === 0 || age.trim().length === 0) {
+      setError({
+        title: "Invalid input",
+        message: "Please enter a valid name and age (non-empty values)",
+      });
+      return;
+    }
+    if (+age < 1) {
+      setError({
+        title: "Invalid age",
+        message: "Please enter a valid age (> 0)",
+      });
+      return;
+    }
     onAddUser(username, age);
     onReset();
   };
 
+  const errorHandler = (e) => {
+    const { target, currentTarget } = e;
+    if (target !== currentTarget) return;
+    setError(null);
+  };
+
   return (
     <>
-      <ErrorModal title="An error occured!" message="Something went wrong!" />
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
       <Card className={styles.input}>
         <form onSubmit={addUserHandler}>
-          <label htmlFor="username">username</label>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
