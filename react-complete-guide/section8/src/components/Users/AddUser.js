@@ -1,6 +1,7 @@
 import useInputs from "../../hooks/useInputs";
 
 import styles from "./AddUser.module.css";
+import Button from "../UI/Button";
 import Card from "../UI/Card";
 
 function AddUser() {
@@ -32,7 +33,7 @@ function AddUser() {
           value={age}
           onChange={onChange}
         />
-        <button type="submit">Add User</button>
+        <Button type="submit">Add User</Button>
       </form>
     </Card>
   );
