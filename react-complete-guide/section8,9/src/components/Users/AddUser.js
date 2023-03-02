@@ -35,8 +35,8 @@ function AddUser({ onAddUser }) {
   };
 
   const errorHandler = (e) => {
-    const { target, currentTarget } = e;
-    if (target !== currentTarget) return;
+    // const { target, currentTarget } = e;
+    // if (target !== currentTarget) return;
     setError(null);
   };
 
