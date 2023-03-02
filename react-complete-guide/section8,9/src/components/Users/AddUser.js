@@ -1,5 +1,5 @@
-import { useState } from "react";
-import useInputs from "../../hooks/useInputs";
+import { useRef, useState } from "react";
+// import useInputs from "../../hooks/useInputs";
 
 import styles from "./AddUser.module.css";
 import Button from "../UI/Button";
@@ -8,14 +8,18 @@ import ErrorModal from "../UI/ErrorModal";
 import Wrapper from "../Helpers/Wrapper";
 
 function AddUser({ onAddUser }) {
-  const [{ username, age }, onChange, onReset] = useInputs({
-    username: "",
-    age: "",
-  });
+  // const [{ username, age }, onChange, onReset] = useInputs({
+  //   username: "",
+  //   age: "",
+  // });
   const [error, setError] = useState(null);
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
 
   const addUserHandler = (e) => {
     e.preventDefault();
+    const username = nameInputRef.current.value;
+    const age = ageInputRef.current.value;
     if (username.trim().length === 0 || age.trim().length === 0) {
       setError({
         title: "Invalid input",
@@ -31,12 +35,12 @@ function AddUser({ onAddUser }) {
       return;
     }
     onAddUser(username, age);
-    onReset();
+    // onReset();
+    nameInputRef.current.value = "";
+    ageInputRef.current.value = "";
   };
 
-  const errorHandler = (e) => {
-    // const { target, currentTarget } = e;
-    // if (target !== currentTarget) return;
+  const errorHandler = () => {
     setError(null);
   };
 
@@ -55,11 +59,18 @@ function AddUser({ onAddUser }) {
           <input
             type="text"
             id="username"
-            value={username}
-            onChange={onChange}
+            // value={username}
+            // onChange={onChange}
+            ref={nameInputRef}
           />
           <label htmlFor="age">Age (Years)</label>
-          <input type="number" id="age" value={age} onChange={onChange} />
+          <input
+            type="number"
+            id="age"
+            // value={age}
+            // onChange={onChange}
+            ref={ageInputRef}
+          />
           <Button type="submit">Add User</Button>
         </form>
       </Card>
