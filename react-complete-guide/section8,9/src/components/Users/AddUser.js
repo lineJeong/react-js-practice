@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-// import useInputs from "../../hooks/useInputs";
 
 import styles from "./AddUser.module.css";
 import Button from "../UI/Button";
@@ -8,10 +7,6 @@ import ErrorModal from "../UI/ErrorModal";
 import Wrapper from "../Helpers/Wrapper";
 
 function AddUser({ onAddUser }) {
-  // const [{ username, age }, onChange, onReset] = useInputs({
-  //   username: "",
-  //   age: "",
-  // });
   const [error, setError] = useState(null);
   const nameInputRef = useRef();
   const ageInputRef = useRef();
@@ -35,7 +30,6 @@ function AddUser({ onAddUser }) {
       return;
     }
     onAddUser(username, age);
-    // onReset();
     nameInputRef.current.value = "";
     ageInputRef.current.value = "";
   };
@@ -56,21 +50,9 @@ function AddUser({ onAddUser }) {
       <Card className={styles.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            // value={username}
-            // onChange={onChange}
-            ref={nameInputRef}
-          />
+          <input type="text" id="username" ref={nameInputRef} />
           <label htmlFor="age">Age (Years)</label>
-          <input
-            type="number"
-            id="age"
-            // value={age}
-            // onChange={onChange}
-            ref={ageInputRef}
-          />
+          <input type="number" id="age" ref={ageInputRef} />
           <Button type="submit">Add User</Button>
         </form>
       </Card>
