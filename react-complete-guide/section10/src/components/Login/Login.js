@@ -1,12 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 
+const initialState = {
+  enteredEmail: "",
+  emailIsValid: null,
+};
+
+export const USER_INPUT = "USER_INPUT";
+export const INPUT_BLUR = "INPUT_BLUR";
+
+const emailReducer = (state, action) => {
+  switch (action.type) {
+    case USER_INPUT:
+      return {
+        enteredEmail: action.value,
+        emailIsValid: action.value.includes("@"),
+      };
+    case INPUT_BLUR:
+      return { ...state, emailIsValid: state.enteredEmail.includes("@") };
+    default:
+      return state;
+  }
+};
+
 const Login = (props) => {
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [emailIsValid, setEmailIsValid] = useState();
+  const [{ enteredEmail, emailIsValid }, dispatchEmail] = useReducer(
+    emailReducer,
+    initialState
+  );
+  // const [enteredEmail, setEnteredEmail] = useState("");
+  // const [emailIsValid, setEmailIsValid] = useState();
   const [enteredPassword, setEnteredPassword] = useState("");
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
@@ -34,21 +60,17 @@ const Login = (props) => {
   // }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
-    setFormIsValid(
-      event.target.value.includes("@") && enteredPassword.trim().length > 6
-    );
+    dispatchEmail({ type: USER_INPUT, value: event.target.value });
+    setFormIsValid(emailIsValid && enteredPassword.trim().length > 6);
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
-    setFormIsValid(
-      enteredEmail.includes("@") && event.target.value.trim().length > 6
-    );
+    setFormIsValid(emailIsValid && event.target.value.trim().length > 6);
   };
 
   const validateEmailHandler = () => {
-    setEmailIsValid(enteredEmail.includes("@"));
+    dispatchEmail({ type: INPUT_BLUR });
   };
 
   const validatePasswordHandler = () => {
