@@ -12,6 +12,14 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
+    console.log("EFFECT RUNNING");
+
+    return () => {
+      console.log("EFFECT CLEANUP");
+    };
+  }, [enteredPassword]);
+
+  useEffect(() => {
     const identifier = setTimeout(() => {
       console.log("checking form validity");
       setFormIsValid(
@@ -20,7 +28,7 @@ const Login = (props) => {
     }, 500);
 
     return () => {
-      console.log("clean up");
+      console.log("cleanup");
       clearTimeout(identifier);
     };
   }, [enteredEmail, enteredPassword]);
