@@ -4,9 +4,13 @@ import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 
-const initialState = {
+const initialEmailState = {
   enteredEmail: "",
   emailIsValid: null,
+};
+const initialPasswordState = {
+  enteredPassword: "",
+  passwordIsValid: null,
 };
 
 export const USER_INPUT = "USER_INPUT";
@@ -25,48 +29,54 @@ const emailReducer = (state, action) => {
       return state;
   }
 };
+const passwordReducer = (state, action) => {
+  switch (action.type) {
+    case USER_INPUT:
+      return {
+        enteredPassword: action.value,
+        passwordIsValid: action.value.trim().length > 6,
+      };
+    case INPUT_BLUR:
+      return {
+        ...state,
+        passwordIsValid: state.enteredPassword.trim().length > 6,
+      };
+    default:
+      return state;
+  }
+};
 
 const Login = (props) => {
   const [{ enteredEmail, emailIsValid }, dispatchEmail] = useReducer(
     emailReducer,
-    initialState
+    initialEmailState
   );
-  // const [enteredEmail, setEnteredEmail] = useState("");
-  // const [emailIsValid, setEmailIsValid] = useState();
-  const [enteredPassword, setEnteredPassword] = useState("");
-  const [passwordIsValid, setPasswordIsValid] = useState();
+  const [{ enteredPassword, passwordIsValid }, dispatchPassword] = useReducer(
+    passwordReducer,
+    initialPasswordState
+  );
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    console.log("EFFECT RUNNING");
+    const identifier = setTimeout(() => {
+      console.log("checking form validity");
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
 
     return () => {
-      console.log("EFFECT CLEANUP");
+      console.log("cleanup");
+      clearTimeout(identifier);
     };
-  }, [enteredPassword]);
-
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     console.log("checking form validity");
-  //     setFormIsValid(
-  //       enteredEmail.includes("@") && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
-
-  //   return () => {
-  //     console.log("cleanup");
-  //     clearTimeout(identifier);
-  //   };
-  // }, [enteredEmail, enteredPassword]);
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: USER_INPUT, value: event.target.value });
-    setFormIsValid(emailIsValid && enteredPassword.trim().length > 6);
+    // setFormIsValid(emailIsValid && passwordIsValid);
   };
 
   const passwordChangeHandler = (event) => {
-    setEnteredPassword(event.target.value);
-    setFormIsValid(emailIsValid && event.target.value.trim().length > 6);
+    dispatchPassword({ type: USER_INPUT, value: event.target.value });
+    // setFormIsValid(emailIsValid && passwordIsValid);
   };
 
   const validateEmailHandler = () => {
@@ -74,7 +84,7 @@ const Login = (props) => {
   };
 
   const validatePasswordHandler = () => {
-    setPasswordIsValid(enteredPassword.trim().length > 6);
+    dispatchPassword({ type: INPUT_BLUR });
   };
 
   const submitHandler = (event) => {
