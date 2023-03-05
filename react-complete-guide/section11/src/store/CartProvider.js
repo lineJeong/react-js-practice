@@ -1,13 +1,42 @@
+import { useReducer } from "react";
 import CartContext from "./cart-context";
 
-function CartProvider(props) {
-  const addItemToCartHandler = (item) => {};
+const initialCartState = {
+  items: [],
+  totalAmount: 0,
+};
 
-  const removeItemFromCartHandler = (id) => {};
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case "ADD":
+      return {
+        items: [...state, action.item],
+        totalAmount: state.totalAmount + action.item.amount * action.item.price,
+      };
+    case "REMOVE":
+      return;
+    default:
+      return state;
+  }
+};
+
+function CartProvider(props) {
+  const [cartState, dispatchCartAction] = useReducer(
+    cartReducer,
+    initialCartState
+  );
+
+  const addItemToCartHandler = (item) => {
+    dispatchCartAction({ type: "ADD", item });
+  };
+
+  const removeItemFromCartHandler = (id) => {
+    dispatchCartAction({ type: "REMOVE", id });
+  };
 
   const cartContext = {
-    items: [],
-    totalAmount: 0,
+    items: cartState.items,
+    totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
   };
