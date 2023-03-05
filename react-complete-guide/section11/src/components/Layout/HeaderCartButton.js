@@ -4,6 +4,9 @@ import useCart from "../../store/useCart";
 
 function HeaderCartButton(props) {
   const cartCtx = useCart();
+  const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
+    return curNumber + item.amount;
+  }, 0);
 
   return (
     <button className={classes.button} onClick={props.onClick}>
@@ -11,7 +14,7 @@ function HeaderCartButton(props) {
         <CartIcon />
       </span>
       <span>Your Cart</span>
-      <span className={classes.badge}>{cartCtx.totalAmount}</span>
+      <span className={classes.badge}>{numberOfCartItems}</span>
     </button>
   );
 }
