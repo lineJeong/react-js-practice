@@ -1,8 +1,8 @@
-import React from "react";
+import { memo } from "react";
 
 import classes from "./Button.module.css";
 
-const Button = (props) => {
+const Button = memo((props) => {
   console.log("Button RUNNING");
   return (
     <button
@@ -14,6 +14,6 @@ const Button = (props) => {
       {props.children}
     </button>
   );
-};
+});
 
 export default Button;
