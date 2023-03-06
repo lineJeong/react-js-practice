@@ -6,11 +6,18 @@ import Button from "./components/UI/Button/Button";
 
 function App() {
   const [showParagraph, setShowParagraph] = useState(false);
+  const [allowToggle, setAllowToggle] = useState(false);
 
   console.log("APP RUNNING");
 
   const toggleParagraphHandler = useCallback(() => {
-    setShowParagraph((prev) => !prev);
+    if (allowToggle) {
+      setShowParagraph((prev) => !prev);
+    }
+  }, [allowToggle]);
+
+  const allowToggleHandler = useCallback(() => {
+    setAllowToggle(true);
   }, []);
 
   // 가상 스냅샷 간(변경 전, 후)의 차이점만 Real DOM에 반영
@@ -18,7 +25,8 @@ function App() {
   return (
     <div className="app">
       <h1>Hi there!</h1>
-      <DemoOutput show={false} />
+      <DemoOutput show={showParagraph} />
+      <Button onClick={allowToggleHandler}>Allow Toggling</Button>
       <Button onClick={toggleParagraphHandler}>Toggle Paragraph</Button>
     </div>
   );
