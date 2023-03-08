@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
+import AddMovie from "./components/AddMovie";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -13,7 +14,9 @@ function App() {
     setError(null);
 
     try {
-      const res = await fetch("https://swapi.dev/api/films");
+      const res = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/movies.json`
+      );
       if (!res.ok) {
         throw new Error("Something went wrong!");
       }
@@ -44,6 +47,9 @@ function App() {
 
   return (
     <React.Fragment>
+      <section>
+        <AddMovie />
+      </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
