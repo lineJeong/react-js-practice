@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-function useHttp(requestConfig, applyData) {
+const useHttp = (requestConfig, applyData) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -9,9 +8,9 @@ function useHttp(requestConfig, applyData) {
     setError(null);
     try {
       const response = await fetch(requestConfig.url, {
-        method: requestConfig.method,
-        headers: requestConfig.headers,
-        body: JSON.stringify(requestConfig.body),
+        method: requestConfig.method ? requestConfig.method : "GET",
+        headers: requestConfig.headers ? requestConfig.headers : {},
+        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
       });
 
       if (!response.ok) {
@@ -27,6 +26,6 @@ function useHttp(requestConfig, applyData) {
   };
 
   return { isLoading, error, sendRequest };
-}
+};
 
 export default useHttp;
