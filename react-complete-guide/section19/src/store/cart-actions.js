@@ -18,7 +18,12 @@ export const fetchCartData = () => {
     try {
       const cartData = await fetchData();
 
-      dispatch(cartActions.replaceCart(cartData));
+      dispatch(
+        cartActions.replaceCart({
+          items: cartData.items || [],
+          totalQuantity: cartData.totalQuantity,
+        })
+      );
     } catch (err) {
       dispatch(
         uiActions.showNotification({
@@ -44,7 +49,10 @@ export const sendCartData = (cart) => {
     const sendRequest = async () => {
       const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/cart.json`, {
         method: "PUT",
-        body: JSON.stringify(cart),
+        body: JSON.stringify({
+          items: cart.items,
+          totalQuantity: cart.totalQuantity,
+        }),
       });
 
       if (!res.ok) {
