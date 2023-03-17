@@ -1,0 +1,17 @@
+.form-control {
+  text-align: center;
+}
+
+.input-control {
+  margin-bottom: 1rem;
+}
+
+.input-control label,
+.input-control input {
+  display: block;
+  margin: 0 auto;
+}
+
+.form-actions {
+  margin-top: 2rem;
+}
