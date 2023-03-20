@@ -8,7 +8,7 @@ let logoutTimer = null;
 
 const AuthProvider = ({ children }) => {
   const storedTokenInfo = authAction.getAuthTokenInfo();
-  const storedUserInfo = authAction.getAuthTokenInfo();
+  const storedUserInfo = authAction.getUserInfo();
 
   let initialToken = null;
   let duration = null;
