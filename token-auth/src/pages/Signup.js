@@ -1,12 +1,12 @@
 import { useState } from "react";
-
 import useInput from "../hooks/useInput";
-import * as validateAuth from "../util/validateAuth";
+import * as authValidation from "../util/authValidation";
 import * as authApi from "../api/auth";
 
 import classes from "./Signup.module.css";
 import PageContent from "../components/UI/PageContent";
 import AuthCertification from "../components/AuthCertification";
+import Input from "../components/UI/Input";
 
 function Signup() {
   const [showCertificationModal, setSowCertificationModal] = useState(false);
@@ -17,7 +17,7 @@ function Signup() {
     inputChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
     reset: resetEmail,
-  } = useInput(validateAuth.validateEmail);
+  } = useInput(authValidation.isValidEmail);
   const {
     value: nicknameValue,
     isValid: nicknameIsValid,
@@ -25,7 +25,7 @@ function Signup() {
     inputChangeHandler: nicknameChangeHandler,
     inputBlurHandler: nicknameBlurHandler,
     reset: resetNickname,
-  } = useInput(validateAuth.validateNickname);
+  } = useInput(authValidation.isValidNickname);
   const {
     value: passwordValue,
     isValid: passwordIsValid,
@@ -33,7 +33,7 @@ function Signup() {
     inputChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
     reset: resetPassword,
-  } = useInput(validateAuth.validatePassword);
+  } = useInput(authValidation.isValidPassword);
   const {
     value: repasswordValue,
     isValid: repasswordIsValid,
@@ -41,7 +41,7 @@ function Signup() {
     inputChangeHandler: repasswordChangeHandler,
     inputBlurHandler: repasswordBlurHandler,
     reset: resetRepassword,
-  } = useInput(validateAuth.validateRepassword.bind(null, passwordValue));
+  } = useInput(authValidation.isValidRepassword.bind(null, passwordValue));
 
   let formIsValid = false;
   if (emailIsValid && nicknameIsValid && passwordIsValid && repasswordIsValid) {
@@ -91,52 +91,46 @@ function Signup() {
       <PageContent>
         <h1>회원가입</h1>
         <form onSubmit={signupFormSubmissionHandler}>
-          <div className={classes["input-control"]}>
-            <label htmlFor="email">이메일</label>
-            <input
-              id="email"
-              type="email"
-              value={emailValue}
-              onChange={emailChangeHandler}
-              onBlur={emailBlurHandler}
-            />
-            {emailHasError && <p>유효한 이메일 양식을 입력해주세요.</p>}
-          </div>
-          <div className={classes["input-control"]}>
-            <label htmlFor="nickname">닉네임</label>
-            <input
-              id="nickname"
-              type="text"
-              value={nicknameValue}
-              onChange={nicknameChangeHandler}
-              onBlur={nicknameBlurHandler}
-            />
-            {nicknameHasError && (
-              <p>닉네임은 2글자 이상, 10글자 이하로 설정해주세요.</p>
-            )}
-          </div>
-          <div className={classes["input-control"]}>
-            <label htmlFor="password">비밀번호</label>
-            <input
-              id="password"
-              type="password"
-              value={passwordValue}
-              onChange={passwordChangeHandler}
-              onBlur={passwordBlurHandler}
-            />
-            {passwordHasError && <p>비밀번호는 6글자 이상으로 설정해주세요.</p>}
-          </div>
-          <div className={classes["input-control"]}>
-            <label htmlFor="repassword">비밀번호 확인</label>
-            <input
-              id="repassword"
-              type="password"
-              value={repasswordValue}
-              onChange={repasswordChangeHandler}
-              onBlur={repasswordBlurHandler}
-            />
-            {repasswordHasError && <p>비밀번호가 일치하지 않습니다.</p>}
-          </div>
+          <Input
+            id="email-signup"
+            label="이메일"
+            type="email"
+            value={emailValue}
+            onChange={emailChangeHandler}
+            onBlur={emailBlurHandler}
+            hasError={emailHasError}
+            errorMsg="유효한 이메일 양식을 입력해주세요."
+          />
+          <Input
+            id="nickname-signup"
+            label="닉네임"
+            type="text"
+            value={nicknameValue}
+            onChange={nicknameChangeHandler}
+            onBlur={nicknameBlurHandler}
+            hasError={nicknameHasError}
+            errorMsg="닉네임은 2글자 이상, 10글자 이하로 설정해주세요."
+          />
+          <Input
+            id="password-signup"
+            label="비밀번호"
+            type="password"
+            value={passwordValue}
+            onChange={passwordChangeHandler}
+            onBlur={passwordBlurHandler}
+            hasError={passwordHasError}
+            errorMsg="비밀번호는 6글자 이상으로 설정해주세요."
+          />
+          <Input
+            id="repassword-signup"
+            label="비밀번호"
+            type="repassword"
+            value={repasswordValue}
+            onChange={repasswordChangeHandler}
+            onBlur={repasswordBlurHandler}
+            hasError={repasswordHasError}
+            errorMsg="비밀번호가 일치하지 않습니다."
+          />
           <div className={classes["form-actions"]}>
             <button disabled={!formIsValid}>인증하기</button>
           </div>

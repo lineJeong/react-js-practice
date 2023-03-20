@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import useInput from "../hooks/useInput";
-import * as validateAuth from "../util/validateAuth";
+import * as authValidation from "../util/authValidation";
 import * as authApi from "../api/auth";
 
 import classes from "./AuthCertification.module.css";
@@ -17,7 +17,7 @@ function AuthCertification(props) {
     inputChangeHandler: authNumberChangeHandler,
     inputBlurHandler: authNumberBlurHandler,
     reset: resetAuthNumber,
-  } = useInput(validateAuth.validateAuthNumber);
+  } = useInput(authValidation.isNotEmpty);
 
   let formIsValid = false;
   if (authNumberIsValid && props.emailIsValid) {
