@@ -11,13 +11,14 @@ function MainNavigation() {
             <NavLink
               to="/"
               className={({ isActive }) => (isActive ? classes.active : null)}
+              end
             >
               Home
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="events"
+              to="/events"
               className={({ isActive }) => (isActive ? classes.active : null)}
             >
               Events
