@@ -66,3 +66,13 @@ export const checkLogoutLoader = () => {
   }
   return null;
 };
+
+export const checkProfileLoader = ({ params }) => {
+  const nicknameParams = params.nickname;
+  const tokenInfo = getAuthTokenInfo();
+  const userInfo = getUserInfo();
+  if (!tokenInfo || userInfo.nickname !== nicknameParams) {
+    return redirect("/");
+  }
+  return null;
+};

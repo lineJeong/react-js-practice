@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: "/profile/:nickname",
         element: <Profile />,
-        loader: authAction.checkLoginLoader,
+        loader: authAction.checkProfileLoader,
       },
     ],
   },
