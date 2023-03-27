@@ -9,7 +9,8 @@ const Favorites = (props) => {
   // const favoriteProducts = useSelector(state =>
   //   state.shop.products.filter(p => p.isFavorite)
   // );
-  const favoriteProducts = [];
+  const { productsList } = useProductsValue();
+  const favoriteProducts = productsList.filter((product) => product.isFavorite);
 
   let content = <p className="placeholder">Got no favorites yet!</p>;
   if (favoriteProducts.length > 0) {

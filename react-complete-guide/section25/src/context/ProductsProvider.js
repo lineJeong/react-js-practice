@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { ProductsValueContext } from "./products-context";
+import {
+  ProductsActionsContext,
+  ProductsValueContext,
+} from "./products-context";
 
 function ProductsProvider({ children }) {
   const [productsList, setProductsList] = useState([
@@ -29,13 +32,34 @@ function ProductsProvider({ children }) {
     },
   ]);
 
+  const toggleFavorite = (productId) => {
+    setProductsList((prevProductsList) => {
+      const productIdx = prevProductsList.findIndex(
+        (product) => product.id === productId
+      );
+      const newFavStatus = !prevProductsList[productIdx].isFavorite;
+      const updatedProductsList = [...prevProductsList];
+      updatedProductsList[productIdx] = {
+        ...prevProductsList[productIdx],
+        isFavorite: newFavStatus,
+      };
+      return updatedProductsList;
+    });
+  };
+
   const value = {
     productsList,
   };
 
+  const actions = {
+    toggleFavorite,
+  };
+
   return (
     <ProductsValueContext.Provider value={value}>
-      {children}
+      <ProductsActionsContext.Provider value={actions}>
+        {children}
+      </ProductsActionsContext.Provider>
     </ProductsValueContext.Provider>
   );
 }
