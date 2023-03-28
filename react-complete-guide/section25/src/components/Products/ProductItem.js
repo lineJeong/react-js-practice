@@ -10,7 +10,8 @@ import "./ProductItem.css";
 const ProductItem = (props) => {
   // const dispatch = useDispatch();
   // const { toggleFavorite } = useProductsActions();
-  const dispatch = useStore()[1];
+  console.log("RENDERING");
+  const dispatch = useStore(false)[1];
 
   const toggleFavHandler = () => {
     // dispatch(toggleFav(props.id));
@@ -34,4 +35,4 @@ const ProductItem = (props) => {
   );
 };
 
-export default ProductItem;
+export default React.memo(ProductItem);
