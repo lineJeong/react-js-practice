@@ -13,7 +13,7 @@ const configureStore = () => {
         isFavorite: newFavStatus,
       };
 
-      return { products: curState.products };
+      return { products: updatedProductsList };
     },
   };
   initStore(actions, {
