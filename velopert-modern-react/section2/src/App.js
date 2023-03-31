@@ -1,9 +1,11 @@
+import CSSModule from "./CSS-Module/CSS-Module";
 import Sass from "./Sass/Sass";
 
 function App() {
   return (
     <div className="App">
-      <Sass />
+      {/* <Sass /> */}
+      <CSSModule />
     </div>
   );
 }
