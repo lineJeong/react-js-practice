@@ -1,11 +1,13 @@
-import CSSModule from "./CSS-Module/CSS-Module";
-import Sass from "./Sass/Sass";
+// import CSSModule from "./CSS-Module/CSS-Module";
+// import Sass from "./Sass/Sass";
+import StyledComponents from "./styled-components/StyledComponents";
 
 function App() {
   return (
     <div className="App">
       {/* <Sass /> */}
-      <CSSModule />
+      {/* <CSSModule /> */}
+      <StyledComponents />
     </div>
   );
 }
