@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import TodoProvider from "./store/TodoProvider";
 
 import TodoCreate from "./components/TodoCreate";
 import TodoHead from "./components/TodoHead";
@@ -13,14 +14,14 @@ body {
 
 function App() {
   return (
-    <>
+    <TodoProvider>
       <GlobalStyle />
       <TodoTemplate>
         <TodoHead />
         <TodoList />
         <TodoCreate />
       </TodoTemplate>
-    </>
+    </TodoProvider>
   );
 }
 
