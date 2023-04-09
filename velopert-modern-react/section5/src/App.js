@@ -27,6 +27,7 @@ function App() {
         <Route path="/about" element={<About />}></Route>
         <Route path="/profiles/*" element={<Profiles />} />
         <Route path="/navigate" element={<NavigateSmaple />} />
+        <Route path="/*" element={<h1>이 페이지는 존재하지 않습니다.</h1>} />
       </Routes>
     </>
   );
