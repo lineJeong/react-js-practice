@@ -1,4 +1,5 @@
 import { Link, Route, Routes } from "react-router-dom";
+import WithRouterSample from "../WithRouterSample";
 import Profile from "./Profile";
 
 function Profiles() {
@@ -17,6 +18,7 @@ function Profiles() {
         <Route index element="유저를 선택해주세요" />
         <Route path=":username" element={<Profile />} />
       </Routes>
+      <WithRouterSample />
     </>
   );
 }
