@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import WithRouterSample from "../WithRouterSample";
 import Profile from "./Profile";
 
@@ -8,10 +8,26 @@ function Profiles() {
       <h3>유저 목록:</h3>
       <ul>
         <li>
-          <Link to="/profiles/velopert">velopert</Link>
+          <NavLink
+            to="/profiles/velopert"
+            style={({ isActive }) => ({
+              background: isActive ? "black" : "white",
+              color: isActive ? "white" : "black",
+            })}
+          >
+            velopert
+          </NavLink>
         </li>
         <li>
-          <Link to="/profiles/gildong">gildong</Link>
+          <NavLink
+            to="/profiles/gildong"
+            style={({ isActive }) => ({
+              background: isActive ? "black" : "white",
+              color: isActive ? "white" : "black",
+            })}
+          >
+            gildong
+          </NavLink>
         </li>
       </ul>
       <Routes>
