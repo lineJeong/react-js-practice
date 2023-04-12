@@ -58,8 +58,4 @@ function Tab({ menu, currentTab, onSelect }) {
   );
 }
 
-Tab.defaultProps = {
-  menu: [],
-};
-
 export default Tab;

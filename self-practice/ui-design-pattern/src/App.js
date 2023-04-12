@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 import ModalSample from "./components/ModalSample";
 import TabSample from "./components/TabSample";
+import TagSample from "./components/TagSample";
 
 const AppBlock = styled.div`
   width: 512px;
-  margin: 0 auto;
-  margin-top: 4rem;
+  margin: 4rem auto;
   padding: 1rem;
   border: 1px solid black;
 
@@ -32,6 +32,10 @@ function App() {
       <Components>
         <h2>Tab</h2>
         <TabSample />
+      </Components>
+      <Components>
+        <h2>Tag</h2>
+        <TagSample />
       </Components>
     </AppBlock>
   );
