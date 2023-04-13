@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ModalSample from "./components/ModalSample";
 import TabSample from "./components/TabSample";
 import TagSample from "./components/TagSample";
+import ToggleSample from "./components/ToggleSample";
 
 const AppBlock = styled.div`
   width: 512px;
@@ -16,7 +17,9 @@ const AppBlock = styled.div`
 `;
 
 const Components = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   & + & {
     margin-top: 3rem;
   }
@@ -36,6 +39,10 @@ function App() {
       <Components>
         <h2>Tag</h2>
         <TagSample />
+      </Components>
+      <Components>
+        <h2>Toggle</h2>
+        <ToggleSample />
       </Components>
     </AppBlock>
   );
