@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AutocompleteSample from "./components/Autocomplete/AutocompleteSample";
 
 import ModalSample from "./components/ModalSample";
 import TabSample from "./components/TabSample";
@@ -7,7 +8,7 @@ import ToggleSample from "./components/ToggleSample";
 
 const AppBlock = styled.div`
   width: 512px;
-  margin: 4rem auto;
+  margin: 10rem auto;
   padding: 1rem;
   border: 1px solid black;
 
@@ -43,6 +44,10 @@ function App() {
       <Components>
         <h2>Toggle</h2>
         <ToggleSample />
+      </Components>
+      <Components>
+        <h2>Autocomplete</h2>
+        <AutocompleteSample />
       </Components>
     </AppBlock>
   );
