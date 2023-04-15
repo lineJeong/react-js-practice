@@ -5,8 +5,8 @@ const ToggleContainer = styled.div`
   cursor: pointer;
 
   > .toggle-container {
-    width: 50px;
-    height: 24px;
+    width: 52px;
+    height: 26px;
     border-radius: 30px;
     transition: all 0.2s ease;
     background-color: white;

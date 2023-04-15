@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import AutocompleteSample from "./components/Autocomplete/AutocompleteSample";
+import ClickToEdit from "./components/ClickToEdit/ClickToEdit";
 
 import ModalSample from "./components/ModalSample";
 import TabSample from "./components/TabSample";
@@ -48,6 +49,10 @@ function App() {
       <Components>
         <h2>Autocomplete</h2>
         <AutocompleteSample />
+      </Components>
+      <Components>
+        <h2>ClickToEdit</h2>
+        <ClickToEdit />
       </Components>
     </AppBlock>
   );
