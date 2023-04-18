@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
+import AuthCertification from "./pages/AuthCertification";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
         path: "/profile/:nickname",
         element: <Profile />,
         loader: authAction.checkProfileLoader,
+      },
+      {
+        path: "/email-auth",
+        element: <AuthCertification />,
+        loader: authAction.checkLogoutLoader,
       },
     ],
   },

@@ -1,11 +1,13 @@
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 
 import classes from "./Modal.module.css";
 
 function Modal(props) {
+  if (!props.isOpen) return null;
+
   return (
     <>
-      {ReactDOM.createPortal(
+      {createPortal(
         <>
           <div
             className={classes.backdrop}

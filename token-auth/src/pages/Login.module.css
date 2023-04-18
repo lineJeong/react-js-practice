@@ -1,3 +1,16 @@
 .form-actions {
   margin-top: 2rem;
 }
+
+.signup-buttons {
+  margin-top: 3rem;
+}
+
+.signup-buttons :global(.signup-button) {
+  display: block;
+  margin: 0 auto;
+}
+
+.signup-buttons :global(.signup-button):not(:first-child) {
+  margin-top: 0.5rem;
+}

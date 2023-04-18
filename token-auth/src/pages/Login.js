@@ -4,7 +4,7 @@ import { useAuthActions } from "../store/use-auth";
 import useSimpleInputs from "../hooks/useSimpleInputs";
 import * as authValidation from "../util/authValidation";
 
-import classes from "./Signup.module.css";
+import classes from "./Login.module.css";
 import PageContent from "../components/UI/PageContent";
 import Input from "../components/UI/Input";
 
@@ -73,6 +73,17 @@ function Login() {
           <button>로그인</button>
         </div>
       </form>
+      <div className={classes["signup-buttons"]}>
+        <button className="signup-button" onClick={() => navigate("/signup")}>
+          회원가입
+        </button>
+        <button
+          className="signup-button"
+          onClick={() => navigate("/email-auth")}
+        >
+          이메일 인증하러 가기
+        </button>
+      </div>
     </PageContent>
   );
 }
