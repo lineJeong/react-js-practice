@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import * as authValidation from "../util/authValidation";
@@ -9,6 +10,9 @@ import Input from "../components/UI/Input";
 
 function Signup() {
   const navigate = useNavigate();
+  const [nicknameIsUnique, setNicknameIsUnique] = useState(null);
+  const [nicknameCheckMsg, setNicknameCheckMsg] = useState(null);
+  let hasNicknameCheckMsg = nicknameIsUnique !== null;
 
   const {
     value: emailValue,
@@ -40,9 +44,41 @@ function Signup() {
   } = useInput(authValidation.isValidRepassword.bind(null, passwordValue));
 
   let formIsValid = false;
-  if (emailIsValid && nicknameIsValid && passwordIsValid && repasswordIsValid) {
+  if (
+    emailIsValid &&
+    nicknameIsValid &&
+    passwordIsValid &&
+    repasswordIsValid &&
+    nicknameIsUnique
+  ) {
     formIsValid = true;
   }
+
+  useEffect(() => {
+    setNicknameIsUnique(null);
+  }, [nicknameValue]);
+
+  useEffect(() => {
+    if (nicknameIsUnique === true) {
+      setNicknameCheckMsg("사용 가능한 닉네임 입니다.");
+    } else if (nicknameIsUnique === false) {
+      setNicknameCheckMsg("이미 존재하는 닉네임 입니다.");
+    } else {
+      setNicknameCheckMsg(null);
+    }
+  }, [nicknameIsUnique]);
+
+  const nicknameCheckHandler = async () => {
+    if (!nicknameIsValid) return;
+
+    try {
+      await authApi.nicknameCheck(nicknameValue);
+      setNicknameIsUnique(false);
+    } catch (error) {
+      setNicknameIsUnique(true);
+      console.error(error);
+    }
+  };
 
   const signupFormSubmissionHandler = async (event) => {
     event.preventDefault();
@@ -55,12 +91,10 @@ function Signup() {
     };
 
     try {
-      const response = await authApi.signup(signupReqBody);
-      if (response.status === 200) {
-        navigate("/email-auth", {
-          state: { emailValue: emailValue, emailIsValid: emailIsValid },
-        });
-      }
+      await authApi.signup(signupReqBody);
+      navigate("/email-auth", {
+        state: { emailValue: emailValue, emailIsValid: emailIsValid },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -89,6 +123,10 @@ function Signup() {
           onBlur={nicknameBlurHandler}
           hasError={nicknameHasError}
           errorMsg="닉네임은 2글자 이상, 10글자 이하로 설정해주세요."
+          button="중복 확인"
+          onClick={nicknameCheckHandler}
+          hasCheckMsg={hasNicknameCheckMsg}
+          checkMsg={nicknameCheckMsg}
         />
         <Input
           id="password-signup"

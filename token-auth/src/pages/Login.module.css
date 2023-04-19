@@ -6,11 +6,11 @@
   margin-top: 3rem;
 }
 
-.signup-buttons :global(.signup-button) {
+.signup-buttons > button {
   display: block;
   margin: 0 auto;
 }
 
-.signup-buttons :global(.signup-button):not(:first-child) {
+.signup-buttons > button:not(:first-child) {
   margin-top: 0.5rem;
 }

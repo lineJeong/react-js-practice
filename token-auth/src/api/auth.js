@@ -11,3 +11,7 @@ export const confirmAuthNumber = ({ email, authNumber }) => {
 export const login = ({ email, password }) => {
   return http.post("/auth/login", { email, password });
 };
+
+export const nicknameCheck = (nickname) => {
+  return http.get(`/auth/users?nickname=${nickname}`);
+};

@@ -12,7 +12,9 @@ function Input(props) {
         onChange={props.onChange}
         onBlur={props.onBlur}
       />
+      {props.button && <button onClick={props.onClick}>{props.button}</button>}
       {props.hasError && <p>{props.errorMsg}</p>}
+      {props.hasCheckMsg && <p>{props.checkMsg}</p>}
     </div>
   );
 }
