@@ -2,19 +2,20 @@ import { createPortal } from "react-dom";
 
 import classes from "./Modal.module.css";
 
-function Modal(props) {
-  if (!props.isOpen) return null;
+function Modal({ isOpen, onClose, children }) {
+  if (!isOpen) return null;
+
+  const clickBackdropHandler = (e) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+  const hasBackDropHandler = onClose ? clickBackdropHandler : null;
 
   return (
     <>
       {createPortal(
-        <>
-          <div
-            className={classes.backdrop}
-            onClick={props.onToggle || null}
-          ></div>
-          <div className={classes.modal}>{props.children}</div>
-        </>,
+        <div className={classes.backdrop} onClick={hasBackDropHandler}>
+          <div className={classes.modal}>{children}</div>
+        </div>,
         document.body
       )}
     </>
