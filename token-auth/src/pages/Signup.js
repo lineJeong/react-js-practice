@@ -10,6 +10,7 @@ import Input from "../components/UI/Input";
 
 function Signup() {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [nicknameIsUnique, setNicknameIsUnique] = useState(null);
   const [nicknameCheckMsg, setNicknameCheckMsg] = useState(null);
   let hasNicknameCheckMsg = nicknameIsUnique !== null;
@@ -89,7 +90,7 @@ function Signup() {
       nickname: nicknameValue,
       password: passwordValue,
     };
-
+    setIsSubmitting(true);
     try {
       await authApi.signup(signupReqBody);
       navigate("/email-auth", {
@@ -98,6 +99,7 @@ function Signup() {
     } catch (error) {
       console.error(error);
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -149,7 +151,9 @@ function Signup() {
           errorMsg="비밀번호가 일치하지 않습니다."
         />
         <div className={classes["form-actions"]}>
-          <button disabled={!formIsValid}>이메일 인증하러 가기</button>
+          <button disabled={!formIsValid || isSubmitting}>
+            이메일 인증하러 가기
+          </button>
         </div>
       </form>
     </PageContent>

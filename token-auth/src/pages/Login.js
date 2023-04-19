@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthActions } from "../store/use-auth";
-import useSimpleInputs from "../hooks/useSimpleInputs";
+import useSimpleInput from "../hooks/useSimpleInput";
 import * as authValidation from "../util/authValidation";
 
 import classes from "./Login.module.css";
@@ -9,15 +9,16 @@ import PageContent from "../components/UI/PageContent";
 import Input from "../components/UI/Input";
 
 function Login() {
-  const authActions = useAuthActions();
   const navigate = useNavigate();
+  const authActions = useAuthActions();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const {
     value,
     inputChangeHandler: loginChangeHandler,
     reset: resetLoginForm,
-  } = useSimpleInputs({ email: "", password: "" });
-  const [errorMsg, setErrorMsg] = useState(null);
+  } = useSimpleInput({ email: "", password: "" });
 
   useEffect(() => {
     setErrorMsg(null);
@@ -45,7 +46,9 @@ function Login() {
       },
     };
 
+    setIsSubmitting(true);
     authActions.loginHandler(loginReqBody, tryCatch);
+    setIsSubmitting(false);
   };
 
   return (
@@ -80,6 +83,7 @@ function Login() {
         <button
           className="signup-button"
           onClick={() => navigate("/email-auth")}
+          disabled={isSubmitting}
         >
           이메일 인증하러 가기
         </button>
