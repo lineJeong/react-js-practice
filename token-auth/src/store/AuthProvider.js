@@ -24,9 +24,9 @@ const AuthProvider = ({ children }) => {
 
   const isLoggined = !!token;
 
-  const loginHandler = async (loginReqBody, tryCatch) => {
+  const loginHandler = async (reqBody, tryCatch) => {
     try {
-      const response = await authApi.login(loginReqBody);
+      const response = await authApi.login(reqBody);
       const { email, nickname, jwt } = response.data;
 
       authAction.setAuthTokenInfo(jwt);
@@ -60,6 +60,17 @@ const AuthProvider = ({ children }) => {
     }, [duration]);
   }, [token, duration, logoutHandler]);
 
+  const withdrawalHandler = async (reqBody, tryCatch) => {
+    try {
+      await authApi.withdraw(reqBody);
+      logoutHandler();
+      tryCatch.try();
+    } catch (error) {
+      tryCatch.catch();
+      console.error(error);
+    }
+  };
+
   const authValue = {
     token,
     isLoggined,
@@ -68,6 +79,7 @@ const AuthProvider = ({ children }) => {
   const authActions = {
     loginHandler,
     logoutHandler,
+    withdrawalHandler,
   };
 
   return (

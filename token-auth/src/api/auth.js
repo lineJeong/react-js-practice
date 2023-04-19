@@ -15,3 +15,8 @@ export const login = ({ email, password }) => {
 export const nicknameCheck = (nickname) => {
   return http.get(`/auth/users?nickname=${nickname}`);
 };
+
+export const withdraw = ({ email, password }) => {
+  console.log({ email, password });
+  return http.delete("/auth/withdraw", { data: { email, password } });
+};

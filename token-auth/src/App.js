@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import AuthCertification from "./pages/AuthCertification";
+import Withdrawal from "./pages/Withdrawal";
 
 const router = createBrowserRouter([
   {
@@ -26,8 +27,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile/:nickname",
-        element: <Profile />,
         loader: authAction.checkProfileLoader,
+        children: [
+          {
+            index: true,
+            element: <Profile />,
+          },
+          { path: "withdraw", element: <Withdrawal /> },
+        ],
       },
       {
         path: "/email-auth",
