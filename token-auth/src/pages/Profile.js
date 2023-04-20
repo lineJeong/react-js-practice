@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import PageContent from "../components/UI/PageContent";
 import { useAuthValue } from "../store/use-auth";
+
+import PageContent from "../components/UI/PageContent";
 
 function Profile() {
   const { userInfo } = useAuthValue();
@@ -19,6 +20,7 @@ function Profile() {
           </p>
         </div>
         <div>
+          <button onClick={() => navigate("modify")}>닉네임 변경</button>
           <button onClick={() => navigate("withdraw")}>회원탈퇴</button>
         </div>
       </PageContent>

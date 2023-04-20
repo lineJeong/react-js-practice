@@ -5,7 +5,7 @@ import classes from "./MainNavigation.module.css";
 import LogoutButton from "./LogoutButton";
 
 function MainNavigation() {
-  const { isLoggined, userInfo } = useAuthValue();
+  const { isLoggedIn, userInfo } = useAuthValue();
 
   return (
     <header className={classes.header}>
@@ -14,22 +14,22 @@ function MainNavigation() {
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
-          {!isLoggined && (
+          {!isLoggedIn && (
             <li>
               <NavLink to="/signup">Signup</NavLink>
             </li>
           )}
-          {!isLoggined && (
+          {!isLoggedIn && (
             <li>
               <NavLink to="/login">Login</NavLink>
             </li>
           )}
-          {isLoggined && (
+          {isLoggedIn && (
             <li>
               <NavLink to={`/profile/${userInfo.nickname}`}>Profile</NavLink>
             </li>
           )}
-          {isLoggined && (
+          {isLoggedIn && (
             <li>
               <LogoutButton />
             </li>

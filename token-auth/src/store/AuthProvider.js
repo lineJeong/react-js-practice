@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(initialToken);
   const [userInfo, setUserInfo] = useState(initialUserInfo);
 
-  const isLoggined = !!token;
+  const isLoggedIn = !!token;
 
   const loginHandler = async (reqBody, tryCatch) => {
     try {
@@ -71,15 +71,17 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // const nicknameModificationHandler = async (query, reqBody) => {};
+
   const authValue = {
     token,
-    isLoggined,
+    isLoggedIn,
     userInfo,
   };
   const authActions = {
-    loginHandler,
-    logoutHandler,
-    withdrawalHandler,
+    login: loginHandler,
+    logout: logoutHandler,
+    withdrawal: withdrawalHandler,
   };
 
   return (

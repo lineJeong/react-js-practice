@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import useInput from "../hooks/useInput";
 import * as authValidation from "../util/authValidation";
 import * as authApi from "../api/auth";

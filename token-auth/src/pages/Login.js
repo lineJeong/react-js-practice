@@ -37,7 +37,7 @@ function Login() {
     const tryCatch = {
       try() {
         resetLoginForm();
-        navigate("/");
+        navigate(-1, { replace: true });
       },
       catch() {
         setErrorMsg(
@@ -47,7 +47,7 @@ function Login() {
     };
 
     setIsSubmitting(true);
-    authActions.loginHandler(loginReqBody, tryCatch);
+    authActions.login(loginReqBody, tryCatch);
     setIsSubmitting(false);
   };
 
@@ -73,7 +73,7 @@ function Login() {
         />
         {errorMsg && <p>{errorMsg}</p>}
         <div className={classes["form-actions"]}>
-          <button>로그인</button>
+          <button disabled={isSubmitting}>로그인</button>
         </div>
       </form>
       <div className={classes["signup-buttons"]}>
@@ -83,7 +83,6 @@ function Login() {
         <button
           className="signup-button"
           onClick={() => navigate("/email-auth")}
-          disabled={isSubmitting}
         >
           이메일 인증하러 가기
         </button>
