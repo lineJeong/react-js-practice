@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
+import useUniqueNickname from "../hooks/useUniqueNickname";
 import * as authValidation from "../util/authValidation";
 import * as authApi from "../api/auth";
 
@@ -11,9 +12,6 @@ import Input from "../components/UI/Input";
 function Signup() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [nicknameIsUnique, setNicknameIsUnique] = useState(null);
-  const [nicknameCheckMsg, setNicknameCheckMsg] = useState(null);
-  let hasNicknameCheckMsg = nicknameIsUnique !== null;
 
   const {
     value: emailValue,
@@ -43,6 +41,12 @@ function Signup() {
     inputChangeHandler: repasswordChangeHandler,
     inputBlurHandler: repasswordBlurHandler,
   } = useInput(authValidation.isValidRepassword.bind(null, passwordValue));
+  const {
+    nicknameIsUnique,
+    nicknameCheckMsg,
+    hasNicknameCheckMsg,
+    nicknameCheckHandler,
+  } = useUniqueNickname(nicknameValue, nicknameIsValid);
 
   let formIsValid = false;
   if (
@@ -54,32 +58,6 @@ function Signup() {
   ) {
     formIsValid = true;
   }
-
-  useEffect(() => {
-    setNicknameIsUnique(null);
-  }, [nicknameValue]);
-
-  useEffect(() => {
-    if (nicknameIsUnique === true) {
-      setNicknameCheckMsg("사용 가능한 닉네임 입니다.");
-    } else if (nicknameIsUnique === false) {
-      setNicknameCheckMsg("이미 존재하는 닉네임 입니다.");
-    } else {
-      setNicknameCheckMsg(null);
-    }
-  }, [nicknameIsUnique]);
-
-  const nicknameCheckHandler = async () => {
-    if (!nicknameIsValid) return;
-
-    try {
-      await authApi.nicknameCheck(nicknameValue);
-      setNicknameIsUnique(false);
-    } catch (error) {
-      setNicknameIsUnique(true);
-      console.error(error);
-    }
-  };
 
   const signupFormSubmissionHandler = async (event) => {
     event.preventDefault();
