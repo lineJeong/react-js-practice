@@ -1,25 +1,28 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthActions, useAuthValue } from "../store/use-auth";
+import useSimpleInput from "../hooks/useSimpleInput";
 
 import PageContent from "../components/UI/PageContent";
 import Input from "../components/UI/Input";
-import useSimpleInput from "../hooks/useSimpleInput";
-import { useState } from "react";
 
 function Withdrawal() {
   const navigate = useNavigate();
   const { userInfo } = useAuthValue();
-  const { withdrawalHandler } = useAuthActions();
+  const authActions = useAuthActions();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { value: password, inputChangeHandler: passwordChangeHandler } =
+  const { value: passwordValue, inputChangeHandler: passwordChangeHandler } =
     useSimpleInput("");
 
-  const withdrawalSubmissionHandler = () => {
+  const withdrawalSubmissionHandler = (e) => {
+    e.preventDefault();
+    if (passwordValue.trim().length === 0) return;
+
     if (window.confirm("정말로 탈퇴하시겠습니까?")) {
       const reqBody = {
         email: userInfo.email,
-        password: password,
+        password: passwordValue,
       };
       const tryCatch = {
         try() {
@@ -30,7 +33,7 @@ function Withdrawal() {
         },
       };
       setIsSubmitting(true);
-      withdrawalHandler(reqBody, tryCatch);
+      authActions.withdrawal(reqBody, tryCatch);
       setIsSubmitting(false);
     }
   };
@@ -39,7 +42,7 @@ function Withdrawal() {
     <PageContent>
       <h1>회원 탈퇴</h1>
       <div>
-        <form>
+        <form onSubmit={withdrawalSubmissionHandler}>
           <Input
             id="nickname-withdraw"
             name="nickname"
@@ -62,17 +65,19 @@ function Withdrawal() {
             name="password"
             label="비밀번호"
             type="password"
-            value={password}
+            value={passwordValue}
             onChange={passwordChangeHandler}
           />
+          <div>
+            <p>회원 탈퇴 시, 기존 회원 정보를 복구할 수 없습니다.</p>
+            <div>
+              <button type="button" onClick={() => navigate(-1)}>
+                돌아가기
+              </button>
+              <button disabled={isSubmitting}>탈퇴하기</button>
+            </div>
+          </div>
         </form>
-      </div>
-      <p>회원 탈퇴 시, 기존 회원 정보를 복구할 수 없습니다.</p>
-      <div>
-        <button onClick={() => navigate(-1)}>돌아가기</button>
-        <button onClick={withdrawalSubmissionHandler} disabled={isSubmitting}>
-          탈퇴하기
-        </button>
       </div>
     </PageContent>
   );
