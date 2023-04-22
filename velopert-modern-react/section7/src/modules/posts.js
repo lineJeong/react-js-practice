@@ -1,5 +1,9 @@
 import * as postsAPI from "../api/posts";
-import { createPromiseThunk, reducerUtils } from "../lib/asyncUtils";
+import {
+  createPromiseThunk,
+  reducerUtils,
+  handleAsyncActions,
+} from "../lib/asyncUtils";
 
 const GET_POSTS = "GET_POSTS"; // 요청 시작
 const GET_POSTS_SUCCESS = "GET_POSTS_SUCCESS"; // 요청 성공
