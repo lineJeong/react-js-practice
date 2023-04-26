@@ -1,6 +1,5 @@
-import { useRouter } from "next/router";
-
 // my-domain.com/news/something-important
+import { useRouter } from "next/router";
 
 function DetailPage() {
   const router = useRouter();
